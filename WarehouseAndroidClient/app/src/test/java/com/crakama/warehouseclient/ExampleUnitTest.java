@@ -1,4 +1,4 @@
-package com.crakama.warehouseplannerclient;
+package com.crakama.warehouseclient;
 
 import org.junit.Test;
 

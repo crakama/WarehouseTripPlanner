@@ -63,6 +63,8 @@ freeline_project_description.json
 *.gradle
 *.idea
 *.properties
+*.gradlew
+*.bat
 
 /local.properties
 /.idea/workspace.xml

@@ -1,4 +1,4 @@
-package com.crakama.warehouseplannerclient;
+package com.crakama.warehouseclient;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

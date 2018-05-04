@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:visibility="visible"
+    tools:context="com.crakama.warehouseclient.HomeFragment">
+
+    <ImageView
+        android:id="@+id/connection_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:adjustViewBounds="false"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/forkliftercopy"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/connection_image"
+        android:layout_centerInParent="true"
+        android:hint="Enter Username"
+        android:text="" />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_centerInParent="true"
+        android:hint="Enter Login Code"
+        android:inputType="numberPassword" />
+
+    <Button
+        android:id="@+id/connection_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_centerInParent="true"
+        android:text="Connect" />
+
+    <TextView
+        android:id="@+id/connection_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/connection_button"
+        android:layout_centerInParent="true"
+        android:text="\nConnect to a server to locate Items" />
+
+</RelativeLayout>
