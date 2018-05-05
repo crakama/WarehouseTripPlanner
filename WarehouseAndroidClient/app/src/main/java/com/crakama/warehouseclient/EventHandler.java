@@ -1,8 +1,5 @@
 package com.crakama.warehouseclient;
 
-import android.app.Dialog;
-import android.util.Log;
-
 import java.io.IOException;
 import java.net.Socket;
 
@@ -17,6 +14,7 @@ class EventHandler {
     private ServerInterface serverInterface;
     private Socket clientSocket;
     private  Thread clientThread;
+    ConnectionHandler connectionHandler;
     public EventHandler(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         this.serverInterface = new ServerInterface();
@@ -29,20 +27,39 @@ class EventHandler {
             @Override
             public void run() {
                 mainActivity.setConnectionButton(false);
-                mainActivity.setConnectionInfo("Connecting... Please wait");
+                mainActivity.setConnectionInfo(0,"Connecting... Please wait");
                 try {
                     clientSocket = new Socket(host_ip_address, DEFAULT_PORT);
-                   ConnectionHandler connectionHandler = new ConnectionHandler(clientSocket);
-                   connectionHandler.sendMessage("start");
-//
-//                    String msg = connectionHandler.readMessage();
-//                    gamePresenterInt = new GamePresenterImpl(mainActivity);
-//                    gamePresenterInt.replyToClient(msg);
+                   connectionHandler = new ConnectionHandler(clientSocket);
+                    String msg = connectionHandler.readMessage();
+                    mainActivity.setConnectionInfo(1, msg);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         });
         clientThread.start();
+    }
+
+    public void searchProduct(final String productid) {
+        clientThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    connectionHandler.sendMessage(productid);
+                    System.out.println("SEARCH BUTTON CLICKED, MESAGE SENT TO SERVER");
+                    String msg = connectionHandler.readMessage();
+                    mainActivity.displayProductLocation(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        clientThread.start();
+
     }
 }

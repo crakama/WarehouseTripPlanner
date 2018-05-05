@@ -1,11 +1,14 @@
 package com.crakama.warehouseclient;
 
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.OnItemClickedListener{
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnItemClickedListener,
+        SearchItemFragment.OnItemClickedListener{
     private Handler handler;
     private EventHandler eventHandler;
 
@@ -23,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnIt
                 return;}
             HomeFragment homeFragment = new HomeFragment();
             homeFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, homeFragment).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
+                    homeFragment).commit();
         }
     }
 
@@ -40,11 +44,36 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnIt
             }
         });
     }
-    public void setConnectionInfo(final String connectionprogress) {
+    public void setConnectionInfo(final int code, final String connectionprogress) {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                HomeFragment.setConnectionInfo(connectionprogress);
+                if(code == 0){
+                    HomeFragment.setConnectionInfo(connectionprogress);
+                }else if(code == 1){
+                    SearchItemFragment searchItemFragment = new SearchItemFragment();
+                    changeFragment(searchItemFragment);
+                }
+            }
+        });
+    }
+    public void changeFragment(Fragment newFragment) {
+        FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+    @Override
+    public void searchBtnClicked(String productid) {
+        eventHandler.searchProduct(productid);
+    }
+
+    public void displayProductLocation(final String msg) {
+        System.out.println("MESSAGE FROM SERVER" + msg);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                SearchItemFragment.setSearchInfo(msg);
             }
         });
     }

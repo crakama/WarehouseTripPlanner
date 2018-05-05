@@ -6,9 +6,9 @@ import java.net.Socket;
 public class RequestHandler implements Runnable {
     private Socket clientScoket;
     private ConnectionHandler connectionHandler;
-    public RequestHandler(Socket clientSocket) throws IOException {
+    public RequestHandler(Socket clientSocket, ConnectionHandler connectionHandler) throws IOException {
         this.clientScoket = clientSocket;
-        this.connectionHandler = new ConnectionHandler(clientSocket);
+        this.connectionHandler = connectionHandler;
     }
     @Override
     public void run() {
@@ -42,6 +42,7 @@ public class RequestHandler implements Runnable {
              }
          }
          System.out.println("Calculated position: "+pos);
+         connectionHandler.sendMessage(pos);
         //Display all array Data on terminal.
         String txt = "";
         for(int i = 0; i < productLocations.length; i++){
