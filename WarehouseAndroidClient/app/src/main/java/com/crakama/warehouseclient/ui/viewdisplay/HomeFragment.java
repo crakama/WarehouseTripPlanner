@@ -1,4 +1,4 @@
-package com.crakama.warehouseclient;
+package com.crakama.warehouseclient.ui.viewdisplay;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,22 +10,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.crakama.warehouseclient.R;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SearchItemFragment.OnItemClickedListener} interface
+ * {@link HomeFragment.OnItemClickedListener} interface
  * to handle interaction events.
- * Use the {@link SearchItemFragment#@newInstance} factory method to
+ * Use the {@link HomeFragment#@newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchItemFragment extends Fragment {
+public class HomeFragment extends Fragment {
     private OnItemClickedListener mListener;
-    private EditText productID;
-    static Button searchButton;
-    static TextView searchInfo;
+    private EditText username,password;
+    static TextView connection_info;
+    static Button connection_btn;
     private static Boolean viewable = false;
-    // Required empty public constructor
-    public SearchItemFragment() {}
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +40,13 @@ public class SearchItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search_item, container, false);
-        this.productID = view.findViewById(R.id.productID);
-        searchInfo = view.findViewById(R.id.search_info);
-        this.searchButton = view.findViewById(R.id.search_button);
-        this.searchButton.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        this.username = view.findViewById(R.id.username);
+        this.password = view.findViewById(R.id.password);
+        connection_info = view.findViewById(R.id.connection_info);
+        connection_btn = view.findViewById(R.id.connection_button);
+        connection_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onButtonPressed(v);
             }
@@ -49,19 +56,18 @@ public class SearchItemFragment extends Fragment {
         return view;
     }
     public static void setButtonState(Boolean state){
-        searchButton.setEnabled(state);
+        connection_btn.setEnabled(state);
     }
-    public static void setSearchInfo(String connectionInfo) {
+    public static void setConnectionInfo(String connectionInfo) {
         if(viewable == true) {
-            SearchItemFragment.searchInfo.setText(connectionInfo);
+            HomeFragment.connection_info.setText(connectionInfo);
         }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(View view) {
         if (mListener != null) {
-            mListener.searchBtnClicked(this.productID.getText().toString());
-            System.out.println("SEARCH BUTTON CLICKED");
+            mListener.connectionBtnClicked(this.username.getText().toString(),this.password.getText().toString());
         }
     }
 
@@ -85,10 +91,10 @@ public class SearchItemFragment extends Fragment {
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
+     * to the activity and potentially other viewdisplay contained in that
      * activity.
      */
     public interface OnItemClickedListener {
-        void searchBtnClicked(String productid);
+        void connectionBtnClicked(String text, String s);
     }
 }

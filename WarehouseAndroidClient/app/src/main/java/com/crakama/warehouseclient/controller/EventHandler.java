@@ -1,4 +1,7 @@
-package com.crakama.warehouseclient;
+package com.crakama.warehouseclient.controller;
+
+import com.crakama.warehouseclient.uihost.MainActivity;
+import com.crakama.warehouseclient.net.ConnectionHandler;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -6,18 +9,16 @@ import java.net.Socket;
 /**
  * Created by kate on 03/05/2018.
  */
-
-class EventHandler {
+//TODO Move implementation to net layer, leave this layer for control purposes-orchestrates communication between layers
+public class EventHandler {
     private int DEFAULT_PORT = 1245;
     private String host_ip_address = "192.168.56.1";
     private MainActivity mainActivity;
-    private ServerInterface serverInterface;
     private Socket clientSocket;
     private  Thread clientThread;
     ConnectionHandler connectionHandler;
     public EventHandler(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        this.serverInterface = new ServerInterface();
     }
     //-------------------------------------------------------------------------
     // Connection methods

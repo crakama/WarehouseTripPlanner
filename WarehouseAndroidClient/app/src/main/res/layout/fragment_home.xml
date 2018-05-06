@@ -2,9 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:visibility="visible"
-    tools:context="com.crakama.warehouseclient.HomeFragment">
+    tools:context=".ui.viewdisplay.HomeFragment">
 
     <ImageView
         android:id="@+id/connection_image"

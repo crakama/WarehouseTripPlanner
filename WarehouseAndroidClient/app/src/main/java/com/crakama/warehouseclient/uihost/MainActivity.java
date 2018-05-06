@@ -1,4 +1,4 @@
-package com.crakama.warehouseclient;
+package com.crakama.warehouseclient.uihost;
 
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -6,9 +6,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import com.crakama.warehouseclient.R;
+import com.crakama.warehouseclient.controller.EventHandler;
+import com.crakama.warehouseclient.ui.viewdisplay.HomeFragment;
+import com.crakama.warehouseclient.ui.viewdisplay.ResultsDisplayFragment;
+import com.crakama.warehouseclient.ui.viewdisplay.SearchItemFragment;
 
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnItemClickedListener,
-        SearchItemFragment.OnItemClickedListener{
+        SearchItemFragment.OnItemClickedListener,ResultsDisplayFragment.OnItemClickedListener{
     private Handler handler;
     private EventHandler eventHandler;
 
@@ -73,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnIt
         handler.post(new Runnable() {
             @Override
             public void run() {
-                SearchItemFragment.setSearchInfo(msg);
+               // SearchItemFragment.setSearchInfo(msg);
+                changeFragment(new ResultsDisplayFragment());
             }
         });
     }
