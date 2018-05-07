@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class ResultsDisplayFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private List<CostCategory> categoryList;
+    private List<CostCategory> categoryList = new ArrayList<>();
     private CostCategoryAdapter costCategoryAdapter;
     private OnItemClickedListener mListener;
 
@@ -67,15 +68,14 @@ public class ResultsDisplayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //View view = inflater.inflate(R.layout.fragment_results, container, false);
-        getGenres();
-        costCategoryAdapter = new CostCategoryAdapter(categoryList);
-        RecyclerView rv = new RecyclerView(getContext());
+        View view = inflater.inflate(R.layout.fragment_results, container, false);
+        RecyclerView rv = (RecyclerView) view.findViewById(R.id.recyclerview);
+        setData();
+        costCategoryAdapter = new CostCategoryAdapter(categoryList,getContext());
+        rv.setItemAnimator(new DefaultItemAnimator());
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setAdapter(costCategoryAdapter);
-        return rv;
-        // Inflate the layout for this fragment
-        //return view;
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -84,15 +84,49 @@ public class ResultsDisplayFragment extends Fragment {
             //mListener.onFragmentInteraction(uri);
         }
     }
-    public void getGenres() {
-        categoryList = new ArrayList<>(6);
-        for (int i = 0; i < 6; i++) {
-            List<Direction> artists = new ArrayList<>(3);
-            artists.add(new Direction("Paramore"));
-            artists.add(new Direction("Flyleaf"));
-            artists.add(new Direction("The Script"));
-            categoryList.add(new CostCategory("Rock_ " + i, artists));
-        }
+    public void setData() {
+        List<Direction> mChildBiodata1 = new ArrayList<>();
+        mChildBiodata1.add(new Direction("Single", "I am a free man!"));
+        List<Direction> mChildBiodata2 = new ArrayList<>();
+        mChildBiodata2.add(new Direction("Married", "I am a married man!"));
+        List<Direction> mChildBiodata3 = new ArrayList<>();
+        mChildBiodata3.add(new Direction("Young", "I am a young man!"));
+        List<Direction> mChildBiodata4 = new ArrayList<>();
+        mChildBiodata4.add(new Direction("Married", "I am a married man!"));
+        List<Direction> mChildBiodata5 = new ArrayList<>();
+        mChildBiodata5.add(new Direction("Semelekete", "I am a semelekete man!"));
+
+
+        CostCategory mHeadBiodata1 = new CostCategory();
+        mHeadBiodata1.setAge("10");
+        mHeadBiodata1.setName("Komak");
+        mHeadBiodata1.setmListChild(mChildBiodata1);
+
+        CostCategory mHeadBiodata2 = new CostCategory();
+        mHeadBiodata2.setAge("20");
+        mHeadBiodata2.setName("Kacang");
+        mHeadBiodata2.setmListChild(mChildBiodata2);
+
+        CostCategory mHeadBiodata3 = new CostCategory();
+        mHeadBiodata3.setAge("15");
+        mHeadBiodata3.setName("Kare");
+        mHeadBiodata3.setmListChild(mChildBiodata3);
+
+        CostCategory mHeadBiodata4 = new CostCategory();
+        mHeadBiodata4.setAge("24");
+        mHeadBiodata4.setName("Kedelai");
+        mHeadBiodata4.setmListChild(mChildBiodata4);
+
+        CostCategory mHeadBiodata5 = new CostCategory();
+        mHeadBiodata5.setAge("32");
+        mHeadBiodata5.setName("Rozan");
+        mHeadBiodata5.setmListChild(mChildBiodata5);
+
+        categoryList.add(mHeadBiodata1);
+        categoryList.add(mHeadBiodata2);
+        categoryList.add(mHeadBiodata3);
+        categoryList.add(mHeadBiodata4);
+        categoryList.add(mHeadBiodata5);
     }
 
     @Override
