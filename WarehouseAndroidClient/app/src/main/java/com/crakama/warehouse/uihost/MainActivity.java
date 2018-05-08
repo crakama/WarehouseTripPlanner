@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnIt
                     case RESPONSE:
                         //TODO connectionHandler.sendMessage(productid);
                         String msg = response.getMsgBody();
-                        changeFragment(new ResultsDisplayFragment());
+                        changeFragment(ResultsDisplayFragment.newInstance(msg,""));
                         break;
                     case UPDATE:
                         triggerUpdateDialog(response.getMsgBody());

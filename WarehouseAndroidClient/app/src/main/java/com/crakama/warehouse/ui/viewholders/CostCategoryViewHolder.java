@@ -36,10 +36,10 @@ public class CostCategoryViewHolder extends ParentViewHolder {
         ivCollapse = (ImageView) itemView.findViewById(R.id.image_view_collapse);
         llItem = (LinearLayout) itemView.findViewById(R.id.ll_item);
     }
-    public void bind(CostCategory biodataHead){
+    public void bind(CostCategory costCategory){
 
-        tvName.setText(biodataHead.getName());
-        tvAge.setText(biodataHead.getAge());
+        tvName.setText(costCategory.getDistanceCategory());
+        tvAge.setText(costCategory.getCost());
 
         int position = getAdapterPosition();
 

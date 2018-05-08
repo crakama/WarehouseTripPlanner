@@ -11,33 +11,33 @@ import java.util.List;
 
 public class CostCategory implements ParentListItem {
 
-    private String name;
-    private String age;
+    private String distanceCategory;
+    private String cost;
     private List<Direction> mListChild;
 
-    public CostCategory(String name, String age, List<Direction> mListChild) {
-        this.name = name;
-        this.age = age;
+    public CostCategory(String distanceCategory, String cost, List<Direction> mListChild) {
+        this.distanceCategory = distanceCategory;
+        this.cost = cost;
         this.mListChild = mListChild;
     }
 
     public CostCategory() {
     }
 
-    public String getName() {
-        return name;
+    public String getDistanceCategory() {
+        return distanceCategory;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDistanceCategory(String distanceCategory) {
+        this.distanceCategory = distanceCategory;
     }
 
-    public String getAge() {
-        return age;
+    public String getCost() {
+        return cost;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setCost(String age) {
+        this.cost = cost;
     }
 
     public List<Direction> getmListChild() {

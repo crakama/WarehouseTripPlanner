@@ -30,7 +30,7 @@ import java.util.List;
 public class ResultsDisplayFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static String ARG_PARAM1 = null;
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
@@ -38,23 +38,21 @@ public class ResultsDisplayFragment extends Fragment {
     private CostCategoryAdapter costCategoryAdapter;
     private OnItemClickedListener mListener;
 
-    public ResultsDisplayFragment() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param msg Parameter 1.
      * @param param2 Parameter 2.
      * @return A new instance of fragment ResultsDisplayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ResultsDisplayFragment newInstance(String param1, String param2) {
+    public static ResultsDisplayFragment newInstance(String msg, String param2) {
         ResultsDisplayFragment fragment = new ResultsDisplayFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        System.out.println(" MSG " + msg);
+        args.putString(ARG_PARAM1, msg);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
@@ -63,6 +61,10 @@ public class ResultsDisplayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            ARG_PARAM1 = getArguments().getString(ARG_PARAM1);
+        }
     }
 
     @Override
@@ -85,48 +87,52 @@ public class ResultsDisplayFragment extends Fragment {
         }
     }
     public void setData() {
+        final Bundle bundle = getArguments();
+        String reply = bundle.getString("ARG_PARAM1");
+        System.out.println(" BUNDLE GETARGS " + reply);
+
         List<Direction> mChildBiodata1 = new ArrayList<>();
-        mChildBiodata1.add(new Direction("Single", "I am a free man!"));
+        mChildBiodata1.add(new Direction("", ARG_PARAM1));
         List<Direction> mChildBiodata2 = new ArrayList<>();
-        mChildBiodata2.add(new Direction("Married", "I am a married man!"));
+        mChildBiodata2.add(new Direction("", "Directions to Path 2"));
         List<Direction> mChildBiodata3 = new ArrayList<>();
-        mChildBiodata3.add(new Direction("Young", "I am a young man!"));
+        mChildBiodata3.add(new Direction("", "Directions to Path 3"));
         List<Direction> mChildBiodata4 = new ArrayList<>();
-        mChildBiodata4.add(new Direction("Married", "I am a married man!"));
+        mChildBiodata4.add(new Direction("", "Directions to Path 4"));
         List<Direction> mChildBiodata5 = new ArrayList<>();
-        mChildBiodata5.add(new Direction("Semelekete", "I am a semelekete man!"));
+        mChildBiodata5.add(new Direction("", "Directions to Path 5"));
 
 
-        CostCategory mHeadBiodata1 = new CostCategory();
-        mHeadBiodata1.setAge("10");
-        mHeadBiodata1.setName("Komak");
-        mHeadBiodata1.setmListChild(mChildBiodata1);
+        CostCategory costCategory1 = new CostCategory();
+        //costCategory1.setCost("Cost of Distance:");
+        costCategory1.setDistanceCategory("Cost of Distance:");
+        costCategory1.setmListChild(mChildBiodata1);
 
-        CostCategory mHeadBiodata2 = new CostCategory();
-        mHeadBiodata2.setAge("20");
-        mHeadBiodata2.setName("Kacang");
-        mHeadBiodata2.setmListChild(mChildBiodata2);
+        CostCategory costCategory2 = new CostCategory();
+        costCategory2.setCost("DistanceCost:");
+        costCategory2.setDistanceCategory("Cost of Distance:");
+        costCategory2.setmListChild(mChildBiodata2);
 
-        CostCategory mHeadBiodata3 = new CostCategory();
-        mHeadBiodata3.setAge("15");
-        mHeadBiodata3.setName("Kare");
-        mHeadBiodata3.setmListChild(mChildBiodata3);
+        CostCategory costCategory3 = new CostCategory();
+        costCategory3.setCost("DistanceCost:");
+        costCategory3.setDistanceCategory("Cost of Distance:");
+        costCategory3.setmListChild(mChildBiodata3);
 
-        CostCategory mHeadBiodata4 = new CostCategory();
-        mHeadBiodata4.setAge("24");
-        mHeadBiodata4.setName("Kedelai");
-        mHeadBiodata4.setmListChild(mChildBiodata4);
+        CostCategory costCategory4 = new CostCategory();
+        costCategory4.setCost("DistanceCost:");
+        costCategory4.setDistanceCategory("Cost of Distance:");
+        costCategory4.setmListChild(mChildBiodata4);
 
-        CostCategory mHeadBiodata5 = new CostCategory();
-        mHeadBiodata5.setAge("32");
-        mHeadBiodata5.setName("Rozan");
-        mHeadBiodata5.setmListChild(mChildBiodata5);
+        CostCategory costCategory5 = new CostCategory();
+        costCategory5.setCost("DistanceCost:");
+        costCategory5.setDistanceCategory("Cost of Distance:");
+        costCategory5.setmListChild(mChildBiodata5);
 
-        categoryList.add(mHeadBiodata1);
-        categoryList.add(mHeadBiodata2);
-        categoryList.add(mHeadBiodata3);
-        categoryList.add(mHeadBiodata4);
-        categoryList.add(mHeadBiodata5);
+        categoryList.add(costCategory1);
+        categoryList.add(costCategory2);
+        categoryList.add(costCategory3);
+        categoryList.add(costCategory4);
+        categoryList.add(costCategory5);
     }
 
     @Override
