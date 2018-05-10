@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by kate on 02/01/2018.
@@ -50,7 +52,22 @@ public class ConnectionHandler {
         };
         sendMessageThread.start();
     }
-
+    public void sendList(MsgType type, ArrayList<Double> body) {
+        Thread sendMessageThread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    MsgProtocol msg = new MsgProtocol(type,body);
+                    outStream.writeObject(msg);
+                    outStream.flush();
+                    outStream.reset();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        sendMessageThread.start();
+    }
     /**
      * @return message from ObjectInputStreams.
      * @throws IOException

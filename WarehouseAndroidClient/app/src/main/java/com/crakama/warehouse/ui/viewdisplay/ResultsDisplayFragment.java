@@ -31,7 +31,7 @@ public class ResultsDisplayFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static String ARG_PARAM1 = null;
-    private static final String ARG_PARAM2 = "param2";
+    private ArrayList<Double> list;
 
     // TODO: Rename and change types of parameters
     private List<CostCategory> categoryList = new ArrayList<>();
@@ -48,12 +48,11 @@ public class ResultsDisplayFragment extends Fragment {
      * @return A new instance of fragment ResultsDisplayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ResultsDisplayFragment newInstance(String msg, String param2) {
+    public static ResultsDisplayFragment newInstance(ArrayList msg, String param2) {
         ResultsDisplayFragment fragment = new ResultsDisplayFragment();
+        System.out.println("ResultsDisplayFragment " + msg);
         Bundle args = new Bundle();
-        System.out.println(" MSG " + msg);
-        args.putString(ARG_PARAM1, msg);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_PARAM1, msg);
         fragment.setArguments(args);
         return fragment;
     }
@@ -63,7 +62,11 @@ public class ResultsDisplayFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            ARG_PARAM1 = getArguments().getString(ARG_PARAM1);
+            //ARG_PARAM1 = getArguments().getString(ARG_PARAM1);
+            list = (ArrayList<Double>) getArguments().getSerializable(ARG_PARAM1);
+            for( Double item: list){
+                System.out.println(" Double " + item);
+            }
         }
     }
 
@@ -87,14 +90,18 @@ public class ResultsDisplayFragment extends Fragment {
         }
     }
     public void setData() {
-        final Bundle bundle = getArguments();
-        String reply = bundle.getString("ARG_PARAM1");
-        System.out.println(" BUNDLE GETARGS " + reply);
+        //final Bundle bundle = getArguments();
+        //String reply = bundle.getString("ARG_PARAM1");
 
+       // System.out.println(" BUNDLE GETARGS " + reply);
         List<Direction> mChildBiodata1 = new ArrayList<>();
         mChildBiodata1.add(new Direction("", ARG_PARAM1));
         List<Direction> mChildBiodata2 = new ArrayList<>();
-        mChildBiodata2.add(new Direction("", "Directions to Path 2"));
+        mChildBiodata2.add(new Direction("",
+                "Go straight for 2 aisle - row\n" +
+                          "Turn on your right aisle\n" +
+                          "Go straight for 3 box slots -col\n" +
+                          "Pick on level 3 at your left.-penalty factor\n"));
         List<Direction> mChildBiodata3 = new ArrayList<>();
         mChildBiodata3.add(new Direction("", "Directions to Path 3"));
         List<Direction> mChildBiodata4 = new ArrayList<>();
@@ -102,37 +109,12 @@ public class ResultsDisplayFragment extends Fragment {
         List<Direction> mChildBiodata5 = new ArrayList<>();
         mChildBiodata5.add(new Direction("", "Directions to Path 5"));
 
-
-        CostCategory costCategory1 = new CostCategory();
-        //costCategory1.setCost("Cost of Distance:");
-        costCategory1.setDistanceCategory("Cost of Distance:");
-        costCategory1.setmListChild(mChildBiodata1);
-
-        CostCategory costCategory2 = new CostCategory();
-        costCategory2.setCost("DistanceCost:");
-        costCategory2.setDistanceCategory("Cost of Distance:");
-        costCategory2.setmListChild(mChildBiodata2);
-
-        CostCategory costCategory3 = new CostCategory();
-        costCategory3.setCost("DistanceCost:");
-        costCategory3.setDistanceCategory("Cost of Distance:");
-        costCategory3.setmListChild(mChildBiodata3);
-
-        CostCategory costCategory4 = new CostCategory();
-        costCategory4.setCost("DistanceCost:");
-        costCategory4.setDistanceCategory("Cost of Distance:");
-        costCategory4.setmListChild(mChildBiodata4);
-
-        CostCategory costCategory5 = new CostCategory();
-        costCategory5.setCost("DistanceCost:");
-        costCategory5.setDistanceCategory("Cost of Distance:");
-        costCategory5.setmListChild(mChildBiodata5);
-
-        categoryList.add(costCategory1);
-        categoryList.add(costCategory2);
-        categoryList.add(costCategory3);
-        categoryList.add(costCategory4);
-        categoryList.add(costCategory5);
+        for( Double costItem: list){
+            CostCategory costCategory = new CostCategory();
+            costCategory.setDistanceCategory("Cost of Distance: " + costItem);
+            categoryList.add(costCategory);
+        }
+        System.out.println(" Category List " + categoryList);
     }
 
     @Override
@@ -145,7 +127,6 @@ public class ResultsDisplayFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
     @Override
     public void onDetach() {
         super.onDetach();

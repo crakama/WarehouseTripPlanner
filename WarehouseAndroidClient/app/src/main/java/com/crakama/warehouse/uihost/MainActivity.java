@@ -14,6 +14,9 @@ import com.crakama.warehouse.ui.viewdisplay.NotifyFragment;
 import com.crakama.warehouse.ui.viewdisplay.ResultsDisplayFragment;
 import com.crakama.warehouse.ui.viewdisplay.SearchItemFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements HomeFragment.OnItemClickedListener,
         SearchItemFragment.OnItemClickedListener,ResultsDisplayFragment.OnItemClickedListener,
         NotifyFragment.OnUpdateDialogListener{
@@ -77,10 +80,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnIt
             @Override
             public void run() {
                 switch (response.getMsgType()) {
-                    case RESPONSE:
+                    case LIST_RESPONSE:
                         //TODO connectionHandler.sendMessage(productid);
-                        String msg = response.getMsgBody();
-                        changeFragment(ResultsDisplayFragment.newInstance(msg,""));
+                        ArrayList listmsg = response.getMsgList();
+                        changeFragment(ResultsDisplayFragment.newInstance(listmsg,""));
+                        break;
+                    case STRING_RESPONSE:
+                        //TODO connectionHandler.sendMessage(productid);
+                        //List msg = response.getMsgBody();
+                        //changeFragment(ResultsDisplayFragment.newInstance(msg,""));
                         break;
                     case UPDATE:
                         triggerUpdateDialog(response.getMsgBody());

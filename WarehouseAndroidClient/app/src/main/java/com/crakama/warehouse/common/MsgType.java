@@ -8,5 +8,5 @@ public enum MsgType {
     SEARCH,
     RESPONSE,
     UPDATE,
-    CONNECTION_OK
+    LIST_RESPONSE, STRING_RESPONSE, CONNECTION_OK
 }
