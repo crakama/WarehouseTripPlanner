@@ -27,23 +27,29 @@ public class NotifyFragment extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.fragment_notify,null);
-        String reply = getArguments().getString("reply");
+       // String reply = getArguments().getString("reply");
+        String reply = "Changes have happened the product you are currently accessing, \n\n" +
+                "Click Refresh to get updates or Ignore to continue with initial results";
         builder.setView(view).setTitle("Changes on Product").setMessage(reply).setNegativeButton("Ignore", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
-        }).setPositiveButton("View Updates", new DialogInterface.OnClickListener() {
+        }).setPositiveButton("Refresh", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onUpdateOKBtnPressed(view, "yes");
+                if (getArguments() != null) {
+                    int[][] resultsgrid = (int[][]) getArguments().getSerializable("replykey");
+                    onUpdateOKBtnPressed(resultsgrid);
+                }
+
             }
         });
         return builder.create();
     }
 
-    public void onUpdateOKBtnPressed(View v, String s) {
+    public void onUpdateOKBtnPressed(int[][] resultsgrid) {
         if (mListener != null) {
-            mListener.btnOKClicked(s);
+            mListener.btnOKClicked(resultsgrid);
         }
     }
     @Override
@@ -59,7 +65,7 @@ public class NotifyFragment extends AppCompatDialogFragment {
 
     public interface OnUpdateDialogListener {
         // TODO: Update argument type and name
-        void btnOKClicked(String text);
+        void btnOKClicked(int[][] resultsgrid);
     }
 
 }

@@ -51,15 +51,6 @@ public class ConnectionHandler {
         outStream.flush();
         outStream.reset();
     }
-    /*    public void sendMessage(String msgToSend) {
-        final String sms = msgToSend;
-        try {
-            outStream.writeObject(sms);
-            outStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
 
     /**
      * @return message from ObjectInputStreams.

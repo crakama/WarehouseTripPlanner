@@ -60,11 +60,8 @@ public class ResultsDisplayFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
-            //ARG_PARAM1 = getArguments().getString(ARG_PARAM1);
             resultsgrid = (int[][]) getArguments().getSerializable(ARG_PARAM1);
-
         }
     }
 
