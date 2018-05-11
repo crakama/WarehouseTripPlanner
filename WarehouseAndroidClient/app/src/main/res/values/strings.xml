@@ -5,8 +5,9 @@
     <string name="lbl_people_name">People name</string>
     <string name="lbl_people_age">People Age</string>
     <string name="lbl_open_detail">Open Detail</string>
-    <string name="lbl_status">Status</string>
-    <string name="lbl_description">Description</string>
+    <string name="lbl_row">Row</string>
+    <string name="lbl_column">Column</string>
+    <string name="lbl_level">Level</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

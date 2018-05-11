@@ -31,7 +31,7 @@ public class ResultsDisplayFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static String ARG_PARAM1 = null;
-    private ArrayList<Double> list;
+    private int[][] resultsgrid;
 
     // TODO: Rename and change types of parameters
     private List<CostCategory> categoryList = new ArrayList<>();
@@ -48,7 +48,7 @@ public class ResultsDisplayFragment extends Fragment {
      * @return A new instance of fragment ResultsDisplayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ResultsDisplayFragment newInstance(ArrayList msg, String param2) {
+    public static ResultsDisplayFragment newInstance(int[][] msg, String param2) {
         ResultsDisplayFragment fragment = new ResultsDisplayFragment();
         System.out.println("ResultsDisplayFragment " + msg);
         Bundle args = new Bundle();
@@ -63,10 +63,8 @@ public class ResultsDisplayFragment extends Fragment {
 
         if (getArguments() != null) {
             //ARG_PARAM1 = getArguments().getString(ARG_PARAM1);
-            list = (ArrayList<Double>) getArguments().getSerializable(ARG_PARAM1);
-            for( Double item: list){
-                System.out.println(" Double " + item);
-            }
+            resultsgrid = (int[][]) getArguments().getSerializable(ARG_PARAM1);
+
         }
     }
 
@@ -90,28 +88,18 @@ public class ResultsDisplayFragment extends Fragment {
         }
     }
     public void setData() {
-        //final Bundle bundle = getArguments();
-        //String reply = bundle.getString("ARG_PARAM1");
 
-       // System.out.println(" BUNDLE GETARGS " + reply);
-        List<Direction> mChildBiodata1 = new ArrayList<>();
-        mChildBiodata1.add(new Direction("", ARG_PARAM1));
-        List<Direction> mChildBiodata2 = new ArrayList<>();
-        mChildBiodata2.add(new Direction("",
-                "Go straight for 2 aisle - row\n" +
-                          "Turn on your right aisle\n" +
-                          "Go straight for 3 box slots -col\n" +
-                          "Pick on level 3 at your left.-penalty factor\n"));
-        List<Direction> mChildBiodata3 = new ArrayList<>();
-        mChildBiodata3.add(new Direction("", "Directions to Path 3"));
-        List<Direction> mChildBiodata4 = new ArrayList<>();
-        mChildBiodata4.add(new Direction("", "Directions to Path 4"));
-        List<Direction> mChildBiodata5 = new ArrayList<>();
-        mChildBiodata5.add(new Direction("", "Directions to Path 5"));
-
-        for( Double costItem: list){
+        for(int row= 0; row<resultsgrid.length; row++){
+            System.out.println(" resultsgrid[row][0] " + resultsgrid[row][0]+
+                    "\t"+resultsgrid[row][1]+"\t"+resultsgrid[row][2]+"\t"+resultsgrid[row][3]);
             CostCategory costCategory = new CostCategory();
-            costCategory.setDistanceCategory("Cost of Distance: " + costItem);
+            List<Direction> directionArrayList = new ArrayList<>();
+            Direction direction = new Direction("Go straight for "+resultsgrid[row][0]+" aisle and Turn on your right aisle\n",
+                    "Go straight for "+resultsgrid[row][1]+" box slots\n",
+                    "Pick on level "+resultsgrid[row][2]+" at your left\n");
+            directionArrayList.add(direction);
+            costCategory.setDistanceCategory("Cost of Distance: " + resultsgrid[row][3]);
+            costCategory.setmListChild(directionArrayList);
             categoryList.add(costCategory);
         }
         System.out.println(" Category List " + categoryList);

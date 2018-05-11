@@ -66,8 +66,14 @@ public class ConnectionHandler {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public MsgProtocol readMessage() throws IOException, ClassNotFoundException {
-        MsgProtocol msg = (MsgProtocol) inputStream.readObject();
+    public MsgProtocol readMessage(){
+        MsgProtocol msg = null;
+        try {
+            msg = (MsgProtocol) inputStream.readObject();
+        } catch (IOException |ClassNotFoundException e) {
+            closeConnection();
+            e.printStackTrace();
+        }
         return msg;
     }
     public void closeConnection(){
@@ -94,15 +100,8 @@ public class ConnectionHandler {
         public void run() {
             while (socket.isConnected()){
                 MsgProtocol msg;
-                try {
                     msg = connectionHandler.readMessage();
                     mainActivity.displayProductLocation(msg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
             }
         }
     }

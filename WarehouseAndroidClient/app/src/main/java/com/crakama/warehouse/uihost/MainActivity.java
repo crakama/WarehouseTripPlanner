@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnIt
                 switch (response.getMsgType()) {
                     case LIST_RESPONSE:
                         //TODO connectionHandler.sendMessage(productid);
-                        ArrayList listmsg = response.getMsgList();
+                        int[][] listmsg = response.getMsgList();
                         changeFragment(ResultsDisplayFragment.newInstance(listmsg,""));
                         break;
                     case STRING_RESPONSE:

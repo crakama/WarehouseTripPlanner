@@ -52,7 +52,7 @@ public class ConnectionHandler {
         };
         sendMessageThread.start();
     }
-    public void sendList(MsgType type, ArrayList<Double> body) {
+    public void sendList(MsgType type, int[][] body) {
         Thread sendMessageThread = new Thread(){
             @Override
             public void run() {

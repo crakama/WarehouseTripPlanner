@@ -6,31 +6,32 @@ package com.crakama.warehouse.model;
  * stores all the data that will be show on expand view
  */
 public class Direction {
+    private String row;
+    private String column;
+    private String height;
 
-    private String status;
-    private String descriptions;
-
-    public Direction(String status, String descriptions) {
-        this.status = status;
-        this.descriptions = descriptions;
+    public Direction(String row, String column, String height) {
+        this.row =row;
+        this.column = column;
+        this.height = height;
     }
 
-    public Direction() {
+    public String getRow() {
+        return row;
     }
-
-    public String getStatus() {
-        return status;
+    public String getColumn() {
+        return column;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public String getHeight() {
+        return height;
     }
-
-    public String getDescriptions() {
-        return descriptions;
+    public void setRow(String row) {
+        this.row = row;
     }
-
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+    public void setColumn(String col) {
+        this.column = col;
+    }
+    public void setHeight(String height) {
+        this.height = height;
     }
 }

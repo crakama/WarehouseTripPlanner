@@ -11,22 +11,20 @@ import com.crakama.warehouse.model.Direction;
 /**
  * Created by kate on 06/05/2018.
  */
-
 public class DirectionViewHolder extends ChildViewHolder {
-
-    private TextView tvStatus;
-    private TextView tvDesc;
-
+    private TextView row;
+    private TextView column;
+    private TextView height;
     public DirectionViewHolder(View itemView) {
         super(itemView);
-        tvDesc = (TextView) itemView.findViewById(R.id.text_view_desc);
-        tvStatus  = (TextView) itemView.findViewById(R.id.text_view_status);
+        row = (TextView) itemView.findViewById(R.id.text_view_row);
+        column  = (TextView) itemView.findViewById(R.id.text_view_col);
+        height  = (TextView) itemView.findViewById(R.id.text_view_level);
     }
-
-    public void bind(Direction biodataChildModel){
-        Log.d("TAG", "appears " + getAdapterPosition());
-        tvStatus.setText(biodataChildModel.getStatus());
-        tvDesc.setText(biodataChildModel.getDescriptions());
+    public void bind(Direction direction){
+        row.setText(direction.getRow());
+        column.setText(direction.getColumn());
+        height.setText(direction.getHeight());
     }
 
 }
